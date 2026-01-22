@@ -793,6 +793,31 @@ function AffordabilityStressTest() {
             </>
           )}
         </div>
+
+        {/* Data Sources & Methodology Section */}
+        <div style={{marginTop: '3rem', padding: '1.5rem', background: '#f9fafb', borderRadius: '8px', fontSize: '0.85rem', color: '#666'}}>
+          <h4 style={{marginBottom: '0.75rem', color: '#333', fontSize: '0.95rem'}}>📊 Data Sources & Methodology</h4>
+          <div style={{lineHeight: '1.6'}}>
+            <p style={{marginBottom: '0.5rem'}}>
+              <strong>Income & Economic Data:</strong> U.S. Census Bureau American Community Survey (ACS) 2022 for state median household and individual incomes. Bureau of Economic Analysis (BEA) Regional Price Parities for cost of living adjustments.
+            </p>
+            <p style={{marginBottom: '0.5rem'}}>
+              <strong>Tax Rates:</strong> Tax Foundation state tax burden data, combined with effective federal tax rates from IRS Statistics of Income.
+            </p>
+            <p style={{marginBottom: '0.5rem'}}>
+              <strong>Emergency Scenario Costs:</strong> Bureau of Labor Statistics Consumer Expenditure Survey, AAA automotive repair cost data, healthcare cost estimates from Kaiser Family Foundation, and Bureau of Labor Statistics household expenditure data.
+            </p>
+            <p style={{marginBottom: '0.5rem'}}>
+              <strong>Seasonal Stress Calendar:</strong> Analysis based on BLS Consumer Expenditure Survey quarterly patterns showing increased spending in January (holiday bills), August (back-to-school), and December (holiday shopping).
+            </p>
+            <p style={{marginBottom: '0.5rem'}}>
+              <strong>Policy Impact Estimates:</strong> Research synthesis from Economic Policy Institute (EPI), Center on Budget and Policy Priorities (CBPP), Center for American Progress (CAP), Roosevelt Institute, and Urban Institute. Policy cost/benefit estimates derived from published research on Medicare for All, universal childcare, housing assistance, and social safety net expansions.
+            </p>
+            <p style={{marginTop: '0.75rem', fontStyle: 'italic'}}>
+              <strong>Methodology:</strong> The Financial Resilience Score is an original metric developed for this tool. It combines emergency fund coverage (40%), monthly cushion (30%), debt burden (15%), and housing cost burden (15%). This differs from traditional budget calculators by measuring crisis preparedness rather than income adequacy. See ATTRIBUTION.md for complete source documentation.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   )
