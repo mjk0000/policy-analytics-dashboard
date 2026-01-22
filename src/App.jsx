@@ -11,7 +11,7 @@ import FoodCosts from './components/FoodCosts'
 import HealthcareCosts from './components/HealthcareCosts'
 import ChildcareEducation from './components/ChildcareEducation'
 import WealthInequality from './components/WealthInequality'
-import InteractiveBudgetCalculator from './components/InteractiveBudgetCalculator'
+import AffordabilityStressTest from './components/AffordabilityStressTest'
 import { usePolicyData, useDerivedMetrics } from './hooks/usePolicyData'
 
 function App() {
@@ -51,7 +51,7 @@ function App() {
           className={activeTab === 'calculator' ? 'active' : ''}
           onClick={() => setActiveTab('calculator')}
         >
-          Budget Calculator
+          Stress Test
         </button>
         <button
           className={activeTab === 'economy' ? 'active' : ''}
@@ -124,7 +124,7 @@ function App() {
         ) : (
           <>
             {activeTab === 'budget' && <BudgetOverview data={data} metrics={metrics} />}
-            {activeTab === 'calculator' && <InteractiveBudgetCalculator />}
+            {activeTab === 'calculator' && <AffordabilityStressTest />}
             {activeTab === 'economy' && <NationalEconomy />}
             {activeTab === 'policy' && <PolicyComparison data={data} metrics={metrics} />}
             {activeTab === 'housing' && <HousingAffordability data={data} metrics={metrics} />}
@@ -145,6 +145,10 @@ function App() {
           Data sources: U.S. Census Bureau, Bureau of Labor Statistics, HUD, Department of Labor
           <br/>
           Policy research: EPI, CBPP, CAP, Roosevelt Institute, Demos, CLASP, Brookings, Pew Research
+          <br/>
+          <em style={{fontSize: '0.85rem', color: '#999'}}>
+            Independent educational tool. Not affiliated with EPI, MIT, or any research institution.
+          </em>
         </p>
       </footer>
     </div>
