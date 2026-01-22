@@ -7,7 +7,7 @@ Policy Analytics Dashboard - A web-based suite of tools for analyzing affordabil
 
 ## Directory Structure
 ```
-/Users/michaeljkeeley/Documents/ClaudeCode/
+/Users/michaeljkeeley/Documents/Affordability_Dashboard/
 ├── src/
 │   ├── components/          # Policy analysis widgets
 │   │   ├── HousingAffordability.jsx
@@ -25,8 +25,8 @@ Policy Analytics Dashboard - A web-based suite of tools for analyzing affordabil
 ```
 
 ## Project Context
-- **Working Directory**: `/Users/michaeljkeeley/Documents/ClaudeCode`
-- **Git Repository**: Not currently a git repository
+- **Working Directory**: `/Users/michaeljkeeley/Documents/Affordability_Dashboard`
+- **Git Repository**: Yes (connected to GitHub)
 - **Platform**: macOS (Darwin 24.4.0)
 - **Project Type**: React web application
 - **User Experience Level**: Beginner programmer
@@ -110,4 +110,4 @@ All widgets currently use sample NYC data. To customize:
 - Styling changes: Modify `src/App.css` for widget styles, `src/index.css` for global styles
 
 ---
-*Last updated: 2026-01-19*
+*Last updated: 2026-01-22*
