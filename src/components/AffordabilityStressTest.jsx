@@ -36,52 +36,122 @@ function AffordabilityStressTest() {
   const [selectedPolicyScenario, setSelectedPolicyScenario] = useState('none')
 
   // State data with cost multipliers and median incomes
+  // Data sources: Census Bureau ACS 2022, BEA Regional Price Parities, Tax Foundation
   const stateData = {
     'National Average': {
       housing: 1.0,
       overall: 1.0,
       tax: 0.18,
+      medicaidExpansion: true,
       medianHouseholdIncome: 74580,
       medianIndividualIncome: 44000,
       medianHomePrice: 417000
     },
-    'California': {
-      housing: 1.65,
-      overall: 1.15,
-      tax: 0.21,
-      medianHouseholdIncome: 91905,
-      medianIndividualIncome: 54200,
-      medianHomePrice: 783000
-    },
-    'Texas': {
-      housing: 0.95,
-      overall: 0.95,
-      tax: 0.16,
-      medianHouseholdIncome: 73035,
-      medianIndividualIncome: 43500,
-      medianHomePrice: 303000
-    },
-    'New York': {
-      housing: 1.55,
-      overall: 1.12,
-      tax: 0.20,
-      medianHouseholdIncome: 81386,
-      medianIndividualIncome: 48500,
-      medianHomePrice: 460000
-    },
-    'Florida': {
-      housing: 1.05,
-      overall: 0.98,
-      tax: 0.15,
-      medianHouseholdIncome: 67106,
-      medianIndividualIncome: 40200,
-      medianHomePrice: 404000
-    }
+
+    // States (alphabetical)
+    'Alabama': { housing: 0.72, overall: 0.86, tax: 0.16, medicaidExpansion: false, medianHouseholdIncome: 56929, medianIndividualIncome: 35200, medianHomePrice: 194000 },
+    'Alaska': { housing: 1.15, overall: 1.06, tax: 0.15, medicaidExpansion: true, medianHouseholdIncome: 86370, medianIndividualIncome: 52800, medianHomePrice: 322000 },
+    'Arizona': { housing: 0.95, overall: 0.94, tax: 0.16, medicaidExpansion: true, medianHouseholdIncome: 72581, medianIndividualIncome: 42500, medianHomePrice: 412000 },
+    'Arkansas': { housing: 0.69, overall: 0.85, tax: 0.17, medicaidExpansion: true, medianHouseholdIncome: 52123, medianIndividualIncome: 33100, medianHomePrice: 170000 },
+    'California': { housing: 1.65, overall: 1.15, tax: 0.21, medicaidExpansion: true, medianHouseholdIncome: 91905, medianIndividualIncome: 54200, medianHomePrice: 783000 },
+    'Colorado': { housing: 1.30, overall: 1.05, tax: 0.18, medicaidExpansion: true, medianHouseholdIncome: 87598, medianIndividualIncome: 52000, medianHomePrice: 565000 },
+    'Connecticut': { housing: 1.25, overall: 1.08, tax: 0.20, medicaidExpansion: true, medianHouseholdIncome: 90213, medianIndividualIncome: 54800, medianHomePrice: 336000 },
+    'Delaware': { housing: 0.98, overall: 0.99, tax: 0.17, medicaidExpansion: true, medianHouseholdIncome: 79325, medianIndividualIncome: 47500, medianHomePrice: 320000 },
+    'Florida': { housing: 1.05, overall: 0.98, tax: 0.15, medicaidExpansion: false, medianHouseholdIncome: 67106, medianIndividualIncome: 40200, medianHomePrice: 404000 },
+    'Georgia': { housing: 0.90, overall: 0.92, tax: 0.17, medicaidExpansion: false, medianHouseholdIncome: 71355, medianIndividualIncome: 42000, medianHomePrice: 321000 },
+    'Hawaii': { housing: 1.75, overall: 1.18, tax: 0.20, medicaidExpansion: true, medianHouseholdIncome: 94814, medianIndividualIncome: 56000, medianHomePrice: 830000 },
+    'Idaho': { housing: 0.92, overall: 0.93, tax: 0.17, medicaidExpansion: true, medianHouseholdIncome: 70214, medianIndividualIncome: 41200, medianHomePrice: 455000 },
+    'Illinois': { housing: 1.10, overall: 1.02, tax: 0.19, medicaidExpansion: true, medianHouseholdIncome: 79253, medianIndividualIncome: 47000, medianHomePrice: 260000 },
+    'Indiana': { housing: 0.76, overall: 0.88, tax: 0.17, medicaidExpansion: true, medianHouseholdIncome: 67173, medianIndividualIncome: 39800, medianHomePrice: 215000 },
+    'Iowa': { housing: 0.73, overall: 0.89, tax: 0.18, medicaidExpansion: true, medianHouseholdIncome: 70571, medianIndividualIncome: 41500, medianHomePrice: 190000 },
+    'Kansas': { housing: 0.74, overall: 0.88, tax: 0.17, medicaidExpansion: false, medianHouseholdIncome: 69747, medianIndividualIncome: 41000, medianHomePrice: 194000 },
+    'Kentucky': { housing: 0.74, overall: 0.87, tax: 0.18, medicaidExpansion: true, medianHouseholdIncome: 60183, medianIndividualIncome: 36500, medianHomePrice: 190000 },
+    'Louisiana': { housing: 0.78, overall: 0.89, tax: 0.16, medicaidExpansion: true, medianHouseholdIncome: 57206, medianIndividualIncome: 35000, medianHomePrice: 210000 },
+    'Maine': { housing: 0.95, overall: 0.97, tax: 0.19, medicaidExpansion: true, medianHouseholdIncome: 68251, medianIndividualIncome: 40500, medianHomePrice: 325000 },
+    'Maryland': { housing: 1.35, overall: 1.09, tax: 0.19, medicaidExpansion: true, medianHouseholdIncome: 98461, medianIndividualIncome: 58500, medianHomePrice: 380000 },
+    'Massachusetts': { housing: 1.45, overall: 1.10, tax: 0.19, medicaidExpansion: true, medianHouseholdIncome: 96505, medianIndividualIncome: 57500, medianHomePrice: 625000 },
+    'Michigan': { housing: 0.78, overall: 0.89, tax: 0.18, medicaidExpansion: true, medianHouseholdIncome: 68505, medianIndividualIncome: 40500, medianHomePrice: 225000 },
+    'Minnesota': { housing: 0.95, overall: 0.97, tax: 0.20, medicaidExpansion: true, medianHouseholdIncome: 84313, medianIndividualIncome: 50000, medianHomePrice: 315000 },
+    'Mississippi': { housing: 0.68, overall: 0.84, tax: 0.16, medicaidExpansion: false, medianHouseholdIncome: 52985, medianIndividualIncome: 32500, medianHomePrice: 165000 },
+    'Missouri': { housing: 0.76, overall: 0.88, tax: 0.17, medicaidExpansion: true, medianHouseholdIncome: 65920, medianIndividualIncome: 39200, medianHomePrice: 220000 },
+    'Montana': { housing: 0.91, overall: 0.95, tax: 0.17, medicaidExpansion: true, medianHouseholdIncome: 66341, medianIndividualIncome: 39500, medianHomePrice: 455000 },
+    'Nebraska': { housing: 0.78, overall: 0.90, tax: 0.18, medicaidExpansion: true, medianHouseholdIncome: 71722, medianIndividualIncome: 42200, medianHomePrice: 230000 },
+    'Nevada': { housing: 1.05, overall: 0.98, tax: 0.15, medicaidExpansion: true, medianHouseholdIncome: 71646, medianIndividualIncome: 42500, medianHomePrice: 425000 },
+    'New Hampshire': { housing: 1.18, overall: 1.05, tax: 0.15, medicaidExpansion: true, medianHouseholdIncome: 90845, medianIndividualIncome: 54000, medianHomePrice: 445000 },
+    'New Jersey': { housing: 1.38, overall: 1.10, tax: 0.20, medicaidExpansion: true, medianHouseholdIncome: 97126, medianIndividualIncome: 58000, medianHomePrice: 485000 },
+    'New Mexico': { housing: 0.82, overall: 0.91, tax: 0.17, medicaidExpansion: true, medianHouseholdIncome: 58722, medianIndividualIncome: 35800, medianHomePrice: 270000 },
+    'New York': { housing: 1.55, overall: 1.12, tax: 0.20, medicaidExpansion: true, medianHouseholdIncome: 81386, medianIndividualIncome: 48500, medianHomePrice: 460000 },
+    'North Carolina': { housing: 0.88, overall: 0.91, tax: 0.17, medicaidExpansion: true, medianHouseholdIncome: 66186, medianIndividualIncome: 39500, medianHomePrice: 330000 },
+    'North Dakota': { housing: 0.82, overall: 0.93, tax: 0.16, medicaidExpansion: true, medianHouseholdIncome: 73959, medianIndividualIncome: 43800, medianHomePrice: 255000 },
+    'Ohio': { housing: 0.75, overall: 0.88, tax: 0.17, medicaidExpansion: true, medianHouseholdIncome: 66990, medianIndividualIncome: 39800, medianHomePrice: 205000 },
+    'Oklahoma': { housing: 0.72, overall: 0.86, tax: 0.16, medicaidExpansion: true, medianHouseholdIncome: 61364, medianIndividualIncome: 37000, medianHomePrice: 190000 },
+    'Oregon': { housing: 1.25, overall: 1.04, tax: 0.20, medicaidExpansion: true, medianHouseholdIncome: 76362, medianIndividualIncome: 45500, medianHomePrice: 510000 },
+    'Pennsylvania': { housing: 0.85, overall: 0.92, tax: 0.18, medicaidExpansion: true, medianHouseholdIncome: 73170, medianIndividualIncome: 43500, medianHomePrice: 240000 },
+    'Rhode Island': { housing: 1.15, overall: 1.03, tax: 0.19, medicaidExpansion: true, medianHouseholdIncome: 81370, medianIndividualIncome: 48500, medianHomePrice: 420000 },
+    'South Carolina': { housing: 0.82, overall: 0.89, tax: 0.17, medicaidExpansion: true, medianHouseholdIncome: 63623, medianIndividualIncome: 38200, medianHomePrice: 260000 },
+    'South Dakota': { housing: 0.80, overall: 0.91, tax: 0.14, medicaidExpansion: false, medianHouseholdIncome: 69457, medianIndividualIncome: 41000, medianHomePrice: 255000 },
+    'Tennessee': { housing: 0.81, overall: 0.89, tax: 0.15, medicaidExpansion: false, medianHouseholdIncome: 64035, medianIndividualIncome: 38500, medianHomePrice: 310000 },
+    'Texas': { housing: 0.95, overall: 0.95, tax: 0.16, medicaidExpansion: false, medianHouseholdIncome: 73035, medianIndividualIncome: 43500, medianHomePrice: 303000 },
+    'Utah': { housing: 1.05, overall: 0.98, tax: 0.18, medicaidExpansion: true, medianHouseholdIncome: 86833, medianIndividualIncome: 51500, medianHomePrice: 505000 },
+    'Vermont': { housing: 1.08, overall: 1.02, tax: 0.19, medicaidExpansion: true, medianHouseholdIncome: 74014, medianIndividualIncome: 44000, medianHomePrice: 355000 },
+    'Virginia': { housing: 1.12, overall: 1.02, tax: 0.18, medicaidExpansion: true, medianHouseholdIncome: 87249, medianIndividualIncome: 52000, medianHomePrice: 370000 },
+    'Washington': { housing: 1.35, overall: 1.08, tax: 0.17, medicaidExpansion: true, medianHouseholdIncome: 90955, medianIndividualIncome: 54500, medianHomePrice: 575000 },
+    'West Virginia': { housing: 0.70, overall: 0.85, tax: 0.17, medicaidExpansion: true, medianHouseholdIncome: 54329, medianIndividualIncome: 33500, medianHomePrice: 145000 },
+    'Wisconsin': { housing: 0.85, overall: 0.92, tax: 0.19, medicaidExpansion: true, medianHouseholdIncome: 72458, medianIndividualIncome: 42800, medianHomePrice: 270000 },
+    'Wyoming': { housing: 0.88, overall: 0.94, tax: 0.13, medicaidExpansion: false, medianHouseholdIncome: 72495, medianIndividualIncome: 43000, medianHomePrice: 305000 },
+
+    // U.S. Territories
+    'Puerto Rico': { housing: 0.75, overall: 0.90, tax: 0.15, medicaidExpansion: true, medianHouseholdIncome: 23324, medianIndividualIncome: 15800, medianHomePrice: 185000 },
+    'U.S. Virgin Islands': { housing: 1.20, overall: 1.10, tax: 0.16, medicaidExpansion: false, medianHouseholdIncome: 44800, medianIndividualIncome: 28500, medianHomePrice: 425000 },
+    'Guam': { housing: 1.30, overall: 1.12, tax: 0.16, medicaidExpansion: true, medianHouseholdIncome: 60000, medianIndividualIncome: 37000, medianHomePrice: 450000 },
+    'Northern Mariana Islands': { housing: 1.15, overall: 1.05, tax: 0.15, medicaidExpansion: true, medianHouseholdIncome: 42500, medianIndividualIncome: 27000, medianHomePrice: 380000 },
+    'American Samoa': { housing: 0.95, overall: 0.98, tax: 0.14, medicaidExpansion: false, medianHouseholdIncome: 28539, medianIndividualIncome: 19000, medianHomePrice: 220000 },
+
+    // District of Columbia
+    'Washington, D.C.': { housing: 1.60, overall: 1.14, tax: 0.21, medicaidExpansion: true, medianHouseholdIncome: 101722, medianIndividualIncome: 60500, medianHomePrice: 680000 }
   }
 
   const stateInfo = stateData[state] || stateData['National Average']
   const isIndividual = numAdults === 1 && numChildren === 0
   const householdSize = numAdults + numChildren
+
+  // Get appropriate median income for this state and household type
+  const stateMedianIncome = isIndividual ? stateInfo.medianIndividualIncome : stateInfo.medianHouseholdIncome
+
+  // Calculate income percentile based on state-specific median
+  // Uses more granular calculation for accuracy
+  const incomePercentile = useMemo(() => {
+    const medianIncome = stateMedianIncome
+    const ratio = income / medianIncome
+
+    // Income distribution roughly follows log-normal distribution
+    // These percentiles are based on Census Bureau income distribution data
+    if (ratio < 0.15) return 5    // Very low income
+    if (ratio < 0.25) return 10
+    if (ratio < 0.35) return 15
+    if (ratio < 0.45) return 20   // Low income
+    if (ratio < 0.55) return 25
+    if (ratio < 0.65) return 30
+    if (ratio < 0.75) return 35   // Below median
+    if (ratio < 0.85) return 40
+    if (ratio < 0.95) return 45
+    if (ratio < 1.05) return 50   // At median (±5%)
+    if (ratio < 1.15) return 55
+    if (ratio < 1.25) return 60   // Above median
+    if (ratio < 1.40) return 65
+    if (ratio < 1.55) return 70
+    if (ratio < 1.75) return 75   // Upper middle
+    if (ratio < 2.00) return 80
+    if (ratio < 2.30) return 85   // High income
+    if (ratio < 2.70) return 90
+    if (ratio < 3.20) return 92   // Very high income
+    if (ratio < 3.80) return 94
+    if (ratio < 4.50) return 96   // Top 5%
+    if (ratio < 5.50) return 97
+    if (ratio < 7.00) return 98   // Top 2%
+    if (ratio < 10.0) return 99   // Top 1%
+    return 99                     // Top 1% (capped at 99)
+  }, [income, stateMedianIncome])
 
   // Calculate basic finances
   const effectiveTaxRate = Math.max(stateInfo.tax, isIndividual ? EFFECTIVE_TAX_RATES.individual : EFFECTIVE_TAX_RATES.household)
@@ -342,6 +412,12 @@ function AffordabilityStressTest() {
               onChange={(e) => setIncome(parseInt(e.target.value))}
               style={{width: '100%'}}
             />
+            <div style={{fontSize: '0.85rem', color: '#666', marginTop: '0.25rem'}}>
+              You're in the <strong>{incomePercentile}th percentile</strong> for {isIndividual ? 'individual' : 'household'} income in {state}
+              {state !== 'National Average' && (
+                <> (Median {isIndividual ? 'individual' : 'household'}: ${stateMedianIncome.toLocaleString()})</>
+              )}
+            </div>
           </div>
 
           {/* Household composition */}
