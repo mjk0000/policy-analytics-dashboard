@@ -1,27 +1,7 @@
 import React from 'react'
 import { Line, Bar } from 'react-chartjs-2'
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-} from 'chart.js'
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-)
+// Chart.js elements are registered globally in main.jsx via src/utils/chartConfig.js
+import { BAR_OPTIONS } from '../utils/chartConfig'
 
 /**
  * Housing Affordability Widget - Uses Real Federal Data
@@ -100,20 +80,8 @@ function HousingAffordability({ data, metrics }) {
     ]
   };
 
-  const chartOptions = {
-    responsive: true,
-    maintainAspectRatio: true,
-    plugins: {
-      legend: {
-        position: 'top'
-      }
-    },
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    }
-  };
+  // Use shared chart options from chartConfig
+  const chartOptions = BAR_OPTIONS;
 
   // Calculate rent burden for median income (using AFTER-TAX income)
   const rentBurdenMedian = ((medianRent * 12 / afterTaxIncome) * 100).toFixed(1);

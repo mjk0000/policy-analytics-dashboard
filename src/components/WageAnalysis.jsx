@@ -1,5 +1,7 @@
 import React from 'react'
 import { Line, Bar } from 'react-chartjs-2'
+// Chart.js elements are registered globally in main.jsx via src/utils/chartConfig.js
+import { BAR_OPTIONS } from '../utils/chartConfig'
 
 /**
  * Wage Analysis Widget - Uses Real Federal Data
@@ -98,20 +100,8 @@ function WageAnalysis({ data, metrics }) {
     ]
   };
 
-  const chartOptions = {
-    responsive: true,
-    maintainAspectRatio: true,
-    plugins: {
-      legend: {
-        position: 'top'
-      }
-    },
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    }
-  };
+  // Use shared chart options from chartConfig
+  const chartOptions = BAR_OPTIONS;
 
   // Calculate metrics
   const realWageGrowth = -2.2; // Would calculate from CPI data

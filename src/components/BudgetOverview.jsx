@@ -1,15 +1,7 @@
 import React from 'react'
 import { Bar, Doughnut } from 'react-chartjs-2'
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend
-} from 'chart.js'
+// Chart.js elements are registered globally in main.jsx via src/utils/chartConfig.js
+import { BAR_OPTIONS, PIE_OPTIONS } from '../utils/chartConfig'
 import {
   MEDIAN_INCOME,
   MEDIAN_HOUSEHOLD_EXPENSES,
@@ -18,16 +10,6 @@ import {
   EFFECTIVE_TAX_RATES,
   getBaselineBudget
 } from '../utils/baselineData'
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend
-)
 
 /**
  * Budget Overview Widget - Comprehensive household financial analysis
@@ -122,30 +104,9 @@ function BudgetOverview({ data, metrics }) {
   const medianDebt = MEDIAN_WEALTH_DEBT.totalDebt;
   const medianAssets = MEDIAN_WEALTH_DEBT.totalAssets;
 
-  const chartOptions = {
-    responsive: true,
-    maintainAspectRatio: true,
-    plugins: {
-      legend: {
-        position: 'top'
-      }
-    },
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    }
-  };
-
-  const pieOptions = {
-    responsive: true,
-    maintainAspectRatio: true,
-    plugins: {
-      legend: {
-        position: 'right'
-      }
-    }
-  };
+  // Use shared chart options from chartConfig
+  const chartOptions = BAR_OPTIONS;
+  const pieOptions = PIE_OPTIONS;
 
   return (
     <div>

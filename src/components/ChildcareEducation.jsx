@@ -1,5 +1,7 @@
 import React from 'react'
 import { Line, Bar, Pie } from 'react-chartjs-2'
+// Chart.js elements are registered globally in main.jsx via src/utils/chartConfig.js
+import { BAR_OPTIONS, PIE_OPTIONS } from '../utils/chartConfig'
 
 /**
  * Childcare & Education Costs Widget - Uses Real Federal Data
@@ -92,30 +94,9 @@ function ChildcareEducation({ data, metrics }) {
     }]
   };
 
-  const chartOptions = {
-    responsive: true,
-    maintainAspectRatio: true,
-    plugins: {
-      legend: {
-        position: 'top'
-      }
-    },
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    }
-  };
-
-  const pieOptions = {
-    responsive: true,
-    maintainAspectRatio: true,
-    plugins: {
-      legend: {
-        position: 'right'
-      }
-    }
-  };
+  // Use shared chart options from chartConfig
+  const chartOptions = BAR_OPTIONS;
+  const pieOptions = PIE_OPTIONS;
 
   return (
     <div>

@@ -12,6 +12,7 @@ import HealthcareCosts from './components/HealthcareCosts'
 import ChildcareEducation from './components/ChildcareEducation'
 import WealthInequality from './components/WealthInequality'
 import AffordabilityStressTest from './components/AffordabilityStressTest'
+import ResearchLibrary from './components/ResearchLibrary'
 import { usePolicyData, useDerivedMetrics } from './hooks/usePolicyData'
 
 function App() {
@@ -40,79 +41,53 @@ function App() {
         </div>
       )}
 
+      {/* Grouped navigation — two logical sections for easier scanning */}
       <nav className="tab-nav">
-        <button
-          className={activeTab === 'budget' ? 'active' : ''}
-          onClick={() => setActiveTab('budget')}
-        >
-          Budget Overview
-        </button>
-        <button
-          className={activeTab === 'calculator' ? 'active' : ''}
-          onClick={() => setActiveTab('calculator')}
-        >
-          Stress Test
-        </button>
-        <button
-          className={activeTab === 'economy' ? 'active' : ''}
-          onClick={() => setActiveTab('economy')}
-        >
-          National Economy
-        </button>
-        <button
-          className={activeTab === 'policy' ? 'active' : ''}
-          onClick={() => setActiveTab('policy')}
-        >
-          Policy Comparison
-        </button>
-        <button
-          className={activeTab === 'housing' ? 'active' : ''}
-          onClick={() => setActiveTab('housing')}
-        >
-          Housing
-        </button>
-        <button
-          className={activeTab === 'wages' ? 'active' : ''}
-          onClick={() => setActiveTab('wages')}
-        >
-          Wages
-        </button>
-        <button
-          className={activeTab === 'taxes' ? 'active' : ''}
-          onClick={() => setActiveTab('taxes')}
-        >
-          Taxes
-        </button>
-        <button
-          className={activeTab === 'transportation' ? 'active' : ''}
-          onClick={() => setActiveTab('transportation')}
-        >
-          Transportation
-        </button>
-        <button
-          className={activeTab === 'food' ? 'active' : ''}
-          onClick={() => setActiveTab('food')}
-        >
-          Food & Groceries
-        </button>
-        <button
-          className={activeTab === 'healthcare' ? 'active' : ''}
-          onClick={() => setActiveTab('healthcare')}
-        >
-          Healthcare
-        </button>
-        <button
-          className={activeTab === 'childcare' ? 'active' : ''}
-          onClick={() => setActiveTab('childcare')}
-        >
-          Childcare & Education
-        </button>
-        <button
-          className={activeTab === 'wealth' ? 'active' : ''}
-          onClick={() => setActiveTab('wealth')}
-        >
-          Wealth & Inequality
-        </button>
+        {/* Section 1: Dashboard & Tools */}
+        <div className="tab-group">
+          <span className="tab-group-label">Dashboard</span>
+          {[
+            { id: 'budget',     label: 'Budget Overview' },
+            { id: 'calculator', label: 'Stress Test' },
+            { id: 'economy',    label: 'National Economy' },
+            { id: 'policy',     label: 'Policy Comparison' },
+            { id: 'research',   label: 'Research Library' },
+          ].map(({ id, label }) => (
+            <button
+              key={id}
+              className={activeTab === id ? 'active' : ''}
+              onClick={() => setActiveTab(id)}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {/* Divider */}
+        <div className="tab-group-divider" aria-hidden="true" />
+
+        {/* Section 2: Policy Sectors */}
+        <div className="tab-group">
+          <span className="tab-group-label">Policy Sectors</span>
+          {[
+            { id: 'housing',       label: 'Housing' },
+            { id: 'wages',         label: 'Wages' },
+            { id: 'taxes',         label: 'Taxes' },
+            { id: 'transportation',label: 'Transportation' },
+            { id: 'food',          label: 'Food & Groceries' },
+            { id: 'healthcare',    label: 'Healthcare' },
+            { id: 'childcare',     label: 'Childcare & Education' },
+            { id: 'wealth',        label: 'Wealth & Inequality' },
+          ].map(({ id, label }) => (
+            <button
+              key={id}
+              className={activeTab === id ? 'active' : ''}
+              onClick={() => setActiveTab(id)}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
       </nav>
 
       <main className="app-main">
@@ -135,6 +110,7 @@ function App() {
             {activeTab === 'healthcare' && <HealthcareCosts data={data} metrics={metrics} />}
             {activeTab === 'childcare' && <ChildcareEducation data={data} metrics={metrics} />}
             {activeTab === 'wealth' && <WealthInequality data={data} metrics={metrics} />}
+            {activeTab === 'research' && <ResearchLibrary />}
           </>
         )}
       </main>

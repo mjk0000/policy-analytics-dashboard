@@ -1,5 +1,7 @@
 import React from 'react'
 import { Bar } from 'react-chartjs-2'
+// Chart.js elements are registered globally in main.jsx via src/utils/chartConfig.js
+import { BAR_OPTIONS, PERCENT_BAR_OPTIONS } from '../utils/chartConfig'
 import { calculateTaxBurden } from '../services/dataService'
 
 /**
@@ -50,36 +52,9 @@ function TaxBurden({ data, metrics }) {
     ]
   };
 
-  const chartOptions = {
-    responsive: true,
-    maintainAspectRatio: true,
-    plugins: {
-      legend: {
-        position: 'top'
-      }
-    },
-    scales: {
-      y: {
-        beginAtZero: true,
-        max: 100
-      }
-    }
-  };
-
-  const barOptions = {
-    responsive: true,
-    maintainAspectRatio: true,
-    plugins: {
-      legend: {
-        position: 'top'
-      }
-    },
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    }
-  };
+  // Use shared chart options from chartConfig
+  const chartOptions = PERCENT_BAR_OPTIONS;  // y-axis capped at 100 for % charts
+  const barOptions = BAR_OPTIONS;
 
   // Sample calculation for a median earner
   const medianIncome = data?.income?.medianHouseholdIncome || 74580;

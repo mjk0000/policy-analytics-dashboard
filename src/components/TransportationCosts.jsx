@@ -1,5 +1,7 @@
 import React from 'react'
 import { Bar } from 'react-chartjs-2'
+// Chart.js elements are registered globally in main.jsx via src/utils/chartConfig.js
+import { BAR_OPTIONS } from '../utils/chartConfig'
 
 /**
  * Transportation Costs Widget - Uses Real Federal Data
@@ -59,20 +61,8 @@ function TransportationCosts({ data, metrics }) {
     ]
   };
 
-  const chartOptions = {
-    responsive: true,
-    maintainAspectRatio: true,
-    plugins: {
-      legend: {
-        position: 'top'
-      }
-    },
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    }
-  };
+  // Use shared chart options from chartConfig
+  const chartOptions = BAR_OPTIONS;
 
   // Calculate burden for median income (using AFTER-TAX income)
   const medianIncome = data?.income?.medianHouseholdIncome || 74580;

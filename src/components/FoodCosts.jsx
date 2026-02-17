@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Bar, Pie } from 'react-chartjs-2';
+// Chart.js elements are registered globally in main.jsx via src/utils/chartConfig.js
+import { PIE_OPTIONS } from '../utils/chartConfig';
 import { MEDIAN_HOUSEHOLD_EXPENSES, MEDIAN_INDIVIDUAL_EXPENSES, MEDIAN_INCOME } from '../utils/baselineData';
 
 /**

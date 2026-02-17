@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Bar, Line } from 'react-chartjs-2';
+// Chart.js elements are registered globally in main.jsx via src/utils/chartConfig.js
+import { BAR_OPTIONS } from '../utils/chartConfig';
 
 /**
  * National Economy & Budget Widget
